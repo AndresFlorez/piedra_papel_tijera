@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="container" ng-init="load_data('/api/1/auth_user/', 'users_list'); current_user_id = {{user.id}}">
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="inbox_chat">
+                    <div class="chat_list">
+                        <div class="chat_people">
+                            <div ng-repeat="user in users_list" ng-if="user.id!=current_user_id" style="cursor: pointer;"
+                                ng-click="select_user(user); get_game(user)" ng-class="{'desc-user': user==user_active}">
+                                <a class="chat_ib">
+                                    <h5>{$ user.first_name $} {$ user.last_name $}</h5>
+                                    <p>{$ user.last_login|date:'short' $}</p>
+                                    <hr>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mesgs">
+                <div>
+                    <div>
+                        <div ng-repeat="user in users_list" ng-if="user==user_active">
+                                <div ng-repeat="entity in entities_list" style="cursor: pointer;" class="Portfolio" ng-click="select_entity(user, entity)">
+                                    <img class="card-img" src="{$ entity.image_file $}">
+                                    <div class="desc" ng-class="{'desc-invert': (entity.id==user.game.entity_1 && current_user_id==user.game.player_1) || (entity.id==user.game.entity_2 && current_user_id==user.game.player_2)}">{$ entity.name $}</div>
+                                </div>
+                                <button class="btn btn-danger" ng-click="challenge(user)" ng-disabled="(user.game.id && (current_user_id==user.game.player_1) && user.game.entity_1) || (!user.game.id && !user.game.entity_1)">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load static %}
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-xs-12 col-sm-8 col-md-12 col-sm-offset-2 col-md-offset-3">
+    <form method="post" action="/signup/">
+      {% csrf_token %}
+      <h2>{% trans 'Registro' %}</h2>
+      <div class="form-group">
+        <label>{% trans form.username.label_tag %}</label>
+        {{ form.username }}
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-12">
+          <div class="form-group">
+            <label>{{ form.first_name.label_tag }}</label>
+            {{ form.first_name }}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-12">
+          <div class="form-group">
+            <label>{{ form.last_name.label_tag }}</label>
+            {{ form.last_name }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{% trans form.email.label_tag %}</label>
+        {{ form.email }}
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-12">
+          <div class="form-group">
+            {% trans form.password1.label_tag %}
+            {{ form.password1 }}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-12">
+          <div class="form-group">
+            <label>{% trans form.password2.label_tag %}
+            {{ form.password2 }}
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <small>{{ form.password1.help_text }}</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-md-6">
+          <button type="submit" class="btn btn-primary btn-block btn-lg">{% trans 'Registrar' %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

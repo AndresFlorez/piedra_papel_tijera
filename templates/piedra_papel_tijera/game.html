@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'css/game.css' %}">
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container" ng-controller="game_controller">
+    <div class="row" ng-init="current_user_id={{user.id}}">
+        <div class="col-xs-12 col-md-12 col-sm-12">
+            <nav>
+                <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                        aria-controls="nav-home" aria-selected="true">Juego</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                        aria-controls="nav-profile" aria-selected="false" ng-click="load_data('/api/1/ranking/', 'ranking_users');">Ranking</a>
+                    <a class="nav-item nav-link"href="/logout">{{ user.first_name|add:' '|add:user.last_name }} | {% trans 'Cerrar sesion' %}</a>
+                </div>
+            </nav>
+            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row ng-scope">
+                        <div class="col-xs-12 col-md-12 col-sm-12">
+                            {% include 'piedra_papel_tijera/game_panel.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="row ng-scope">
+                        <div class="col-xs-12 col-md-12 col-sm-12 text-center">
+                            {% include 'piedra_papel_tijera/ranking.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

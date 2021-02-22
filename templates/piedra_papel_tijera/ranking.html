@@ -1,0 +1,8 @@
+  <div class="card text-center" style="width: 100%;">
+    <ul class="list-group list-group-flush">
+      <li ng-repeat="user in ranking_users" class="list-group-item">
+          Nombre: {$ user.first_name + ' ' + user.last_name $}<br>
+          Partidas Ganadas: {$ user.game_wins_count $}
+      </li>
+    </ul>
+  </div>
